@@ -1,5 +1,5 @@
 var i = 0
-var timeStart = 3;
+var timeStart = 30;
 function countDown() {
   var timerEl = document.getElementById("timer");
   timerEl.textContent = timeStart;
@@ -49,22 +49,45 @@ var questions = [
 var q = document.getElementById("q");
 var a = document.getElementById("a");
 
-for (var i = 0; i < questions.length; i++){
+
+
+
+
+
+
+
+
+function showQuestions(){
     var questionEl = document.createElement('h2')
     var answerEl = document.createElement('ol')
     questionEl.textContent = (questions[i].question)
     q.appendChild(questionEl)
-    q.appendChild(answerEl)
+    a.appendChild(answerEl)
     for (var j = 0; j < questions[i].answer.length; j++){
         var answerChoice = document.createElement('li')
-        answerChoice.setAttribute('onclick', 'nextQuestion()')
+        answerChoice.setAttribute('onclick', 'nextQuestion(event)')
         answerChoice.textContent = questions[i].answer[j]
-        answerEl.appendChild(answerChoice)
-        console.log (questions[i].answer[j])
+        answerEl.appendChild(answerChoice);
     }
-    console.log (questions[i].correct)
-
 }
-function nextQuestion(){
+showQuestions();
 
-}
+function nextQuestion(e){
+    console.log (e.target)
+    if (questions[i].correct === e.target.textContent){
+        console.log ("correct")
+    }else {
+        console.log ("wrong")
+        timeStart -= 3
+    }
+    
+    i++
+    q.children[0].remove()
+    a.children[0].remove()
+    if (i < questions.length ){
+        showQuestions();
+    }else (i < questions.length)
+        // showHighScore();
+    }
+
+
